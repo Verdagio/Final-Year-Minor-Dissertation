@@ -115,10 +115,11 @@ About seven to ten pages.
 \end{itemize}
 
 \section{Docker}
+
 \subsection{What is Docker?}
 Docker is a platform that enables containerization of applications. Containerization provides standardized units for development, shipment and deployment. Container images are lightweight, isolated, executable packages of software that contain all the components to run the specified; the code, tools, dependencies, and settings. With availability on Linux and Windows based containers, both will run seamlessly regardless of the environment. Containers running in isolation means that regardless of how the environment or infrastructure which the container will run on, the application within the container will be unaffected by discrepancies across the environments, and other applications. Docker provides containers that run on a single machine share the operating system-kernel, resulting in rapid starting and less consumption of the central processing unit (CPU) and random access memory (RAM). Based on open standards, Docker containers can run on all major Linux distributions, Microsoft Windows, Apple MAC OS, and any infrastructure like: virtual machines, bare-metal, and via cloud services. 
 
-\subsection{Containers v Virtual Machines}
+\subsection{Docker Containers v Virtual Machines}
 What are the benefits or differences of using Docker containers over Virtual Machines? 
 While Docker containers and virtual machines have relatively similar resource isolation and allocation benefits, they function differently. Where a virtual machine will mimic the behavior of an operating system running on a physical computer, Docker containers visualizer just the operating system, rather than the operating system running on the hardware itself, resulting in higher efficiency and portability. Consider figure \ref{fig:containervsvm}
 
@@ -128,18 +129,17 @@ While Docker containers and virtual machines have relatively similar resource is
 \label{fig:containervsvm}
 \end{figure}
 
-
 Containers are an abstraction at the application layer which packages the code and dependencies  together. Numerous Docker containers can be running on the same machine and share resources such as the operating system kernel with other Docker containers running on the same machine, even though each of these Docker containers are running in isolation in the user space. Docker containers also require less space than virtual machines, with a container image typically using less than one hundred megabytes of storage space in size, alongside their near immediate start time.
-On the other hand Virtual machines on the other hand, are an abstraction of physical hardware allowing one server to appear or act as if it were many servers. The hyper-visor, also known as virtual machine monitor, produces any guest operating systems with a virtual operating platform and in turn manages the execution of all guest operating systems on the host machine. Each virtual machine will have a full copy of an operating system, one or many applications, any required dependencies, libraries and binaries, all of which would consume up to or more than one hundred gigabytes. Virtual machines can also be slow to launch. 
+On the other hand Virtual machines, are an abstraction of physical hardware allowing one server to appear or act as if it were many servers. The hyper-visor, also known as virtual machine monitor, produces any guest operating systems with a virtual operating platform and in turn manages the execution of all guest operating systems on the host machine. Each virtual machine will have a full copy of an operating system, one or many applications, any required dependencies, libraries and binaries, all of which would consume up to or more than one hundred gigabytes. Virtual machines can also be slow to launch. 
 
 Docker is a container platform to construct, secure and administer a large array of applications from the early stages of development to deployment and production whether they are local or “in the cloud”. Docker Community Edition provides tools to build applications to developers for free, whereas Docker Enterprise Edition provides a Containers-as-a-Service platform for IT companies with multi-architecture operations at scale. 
 
-\subsection{Modernize Traditional Applications MTA kit}
+\subsection{Dockerizing Existing Applications}
 An application does not have to be built from the ground up with Docker, as existing applications  can be containerized. With potential of reducing cost, start up time, and provide a layer of security, Docker can aid in time and resource management when building new applications or even modernizing legacy applications. Using the Modernize Traditional Applications [MTA] kit via Docker Enterprise Edition, developers can package existing applications into containers, which will enable the application to be portable. This alteration implements modern properties to legacy applications, without the need to change any of the source code. It will also reduce the overhead required to run the legacy application, increase operational efficiency, and consolidate infrastructure.
 
 Because Docker packages applications and their dependencies together into an isolated container, this makes them portable to any infrastructure, making them suitable for Cloud migration, multi-cloud or hybrid cloud infrastructures. Thus eliminating the age-old “works on my machine” problem. The Docker Certified Infrastructure guarantees that the containerized applications work consistently. It provides an integrated environment for multiple distributions of enterprise Linux, as well as on Cloud providers such as Amazon Web Services, Azure and IBM. Docker Certified containers provide trusted independent software vendor products packaged and distributed via Docker containers. Docker Certified plug ins provide easy to download and install containers for an environment, as well as networking and volume plug ins.
 
-\subsection{Docker for Developer Operations}
+\subsection{Continuous Integration and Microservices}
 Docker also provides tools and strategies to Developer Operations (Dev Ops) teams. John Willis’ White paper on “Docker and the Three Ways of DevOps“, outline three principles known as “The Three Ways of DevOps”, and describes the purpose of these principles, how to apply these principles using Docker within organizations, and the results and benefits from doing so. 
 
 
@@ -168,10 +168,9 @@ Docker can aid the above in the following ways:
     To summarize, Docker containers execute the roll back and roll forward processes more efficiently, and also are a lot cleaner due to container isolation during changeover.
 	\end{itemize}
 \item \textbf{Variation:}
-	A fundamental pro of using Docker images throughout the software delivery pipeline
-is that the environment and application can both be packaged within the container image. With Docker, a developer can package the actual environment (e.g OS, dependencies, other requirements) within the same image. This convergence reduces the possible variation at all stages of the delivery pipeline; i.e. development, integration, and  deployment\cite{willis}. If a developer were to test a collection of Docker images as a service on any machine, the services in question can be the exact same during integration testing and right up to deployment. "A Dockerized pipeline approach delivers converged artifacts as binaries and therefore are immutable starting from the commit"\cite{willis}.
+	A fundamental pro of using Docker images throughout the software delivery pipeline is that the environment and application can both be packaged within the container image. With Docker, a developer can package the actual environment (e.g OS, dependencies, other requirements) within the same image. This convergence reduces the possible variation at all stages of the delivery pipeline; i.e. development, integration, and  deployment\cite{willis}. If a developer were to test a collection of Docker images as a service on any machine, the services in question can be the exact same during integration testing and right up to deployment. "A Dockerized pipeline approach delivers converged artifacts as binaries and therefore are immutable starting from the commit"\cite{willis}.
 \item \textbf{Visualization}
-	Containerized Micro services is a model which has been generating a buzz within the software development world lately. In an architecture of micro services, “services” are defined as bounded context. When these services are connected as Docker containers and used within the delivery pipeline, they become visible without delay on a domain. Services become more visible in the pipeline when bounded by their business context and then isolated as Docker containers. With more visibility an organization can isolate, and determine control rapidly; thus reducing overall Mean time to repair\cite{willis}.
+	Containerized Microservices is a model which has been generating a buzz within the software development world lately. In an architecture of micro services, “services” are defined as bounded context. When these services are connected as Docker containers and used within the delivery pipeline, they become visible without delay on a domain. Services become more visible in the pipeline when bounded by their business context and then isolated as Docker containers. With more visibility an organization can isolate, and determine control rapidly; thus reducing overall Mean time to repair\cite{willis}.
     "The “First Way”” and Docker can provide global optimization around software Velocity, Variation and Visualization. Dockerizing the development pipeline, organizations can reduce the cost and risk of software delivery while increasing the rate of change."\cite{willis} 
 \end{itemize}
 
@@ -188,12 +187,22 @@ is that the environment and application can both be packaged within the containe
 
 \textbf{\emph{"The Third Way: Continuous Learning"}}
 
-"In this “Third Way”, the symbol of a complete loop is used because it ties the first two ways together through a rigorous implementation of a learning process."\cite{willis}
-The word Kaizen is often seen as an approach of continuous improvement within an organization. This approach being fulfilled through a culture of continuous experimentation and learning in all parts of the organization\cite{willis}. The speed to market is essential in the deliverance of software and services. It is also the speed at which reaction, and reproduction to customers validation of the delivered service. 
-The major principles of the Dev Ops mindset all point to outcomes like rapid innovation, increase quality and a feedback loop of continuous learning. "The Docker platform uniquely allows organizations to apply tools into their application environment to accelerate the rate of change, reduce friction and improve efficiencies."\cite{willis}.
+"In this “Third Way”, the symbol of a complete loop is used because it ties the first two ways together through a rigorous implementation of a learning process."\cite{willis} The word Kaizen is often seen as an approach of continuous improvement within an organization. This approach being fulfilled through a culture of continuous experimentation and learning in all parts of the organization\cite{willis}. The speed to market is essential in the deliverance of software and services. It is also the speed at which reaction, and reproduction to customers validation of the delivered service. The major principles of the Dev Ops mindset all point to outcomes like rapid innovation, increased quality and a feedback loop of continuous learning. "The Docker platform uniquely allows organizations to apply tools into their application environment to accelerate the rate of change, reduce friction and improve efficiencies."\cite{willis}.
 
-\section{NodeJS and Restify Typescript integration}
+\subsection{Conclusion}
+	To summarize, Docker as a development tool is relatively easy to pick up and implement, due to the fact that it is well supported and documented by its community. However, it comes with a steep learning curve as you traverse deeper into its more advanced features and functionality. The isolated environments Docker containers provide enables work across different machines regardless of the underlying infrastructure, which in the case of this project, provided an easy work flow during cross examination, merging, and service integration. Going forward Docker will continue to make this project more and more versatile, secure, quick, and easy to maintain because of the Dockers ethos. Long after the project has been deployed and it is in use by the product owner, integration engineers and developer operations teams should find processes like: onboarding new services, or analyzing and repairing problematic services easy to identify, then address, seamless and fast. Finally with the exponential growth in adoption rate of Docker over the last couple of years, virtual machines may very well be a thing of the past in years to come.
 
+\section{NodeJS}
+\subsection{About Node}
+	Node is designed as an asynchronous event driven JavaScript runtime for scalable network applications built off Google Chrome's V8 Engine. Google Chrome's V8 Engine will translate the JavaScript, which Node API's are written in, into machine readable code. Node provides the ability to handle many connections concurrently using callbacks, but if there is no work pending, it will sleep\cite{nodejs}. This is in opposition to the current common concurrency model that employs operating system threads, as thread-based networking can be relatively difficult to use and inefficient. Node users need not worry of processes dead-locking, since no locks exist. I/O processes never block, because very few functions in Node directly perform I/O, as a result of this scalable systems are feasible to build using Node. Node presents an event loop as a runtime construct rather than as a library. Node will enter this event loop after execution of an input script, and exit the event loop once all callbacks have been performed\cite{nodejs}.
+    
+\subsection{JavaScript to Machine Code via Chrome V8 Engine}
+
+\subsection{The Event Loop}
+
+\subsection{Typescript integration with NodeJS}
+
+\subsection{Conclusion}
 
 
 
