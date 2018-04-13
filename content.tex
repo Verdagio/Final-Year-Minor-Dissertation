@@ -189,14 +189,14 @@ Docker can aid the above in the following ways:
 \subsection{Conclusion}
 	To summarize, Docker as a development tool is relatively easy to pick up and implement, due to the fact that it is well supported and documented by its community. However, it comes with a steep learning curve as you traverse deeper into its more advanced features and functionality. The isolated environments that Docker containers provide, enables work across different machines regardless of the underlying infrastructure, which in the case of this project, provided an easy work flow during cross examination, merging, and service integration. Going forward Docker will continue to make this project more and more versatile, secure, quick, and easy to maintain because of the Docker ethos. Long after the project has been deployed and it is in use by the product owner, integration engineers and developer operations teams should find processes like: onboarding new services, or analyzing and repairing problematic services easy to identify, then address, seamlessly and fast. Finally with the exponential growth in adoption rate of Docker over the last couple of years, virtual machines may very well be a thing of the past in years to come.
 
-\section{NodeJS}
+\section{Node}
 \subsection{About Node}
-	Node is designed as an asynchronous event driven JavaScript runtime for scalable network applications built off Google Chrome V8 Engine. Google Chrome V8 Engine will translate the JavaScript, which Node API's are written in, into machine readable code. Node provides the ability to handle many connections concurrently using callbacks, but if there is no work pending, it will sleep\cite{nodejs}. This is in opposition to the current common concurrency model that employs operating system threads, as thread-based networking can be relatively difficult to use and inefficient. Node users need not worry of processes dead-locking, since no locks exist. I/O processes never block, because very few functions in Node directly perform I/O, as a result of this scalable systems are feasible to build using Node. Node presents an event loop as a runtime construct rather than as a library. Node will enter this event loop after execution of an input script, and exit the event loop once all callbacks have been performed\cite{nodejs}.
+	Node is designed as an asynchronous event driven JavaScript runtime for scalable network applications built off Google Chrome V8 Engine. Google Chrome V8 Engine will translate the JavaScript, which Node Application Programming Interface's are written in, into machine readable code. Node provides the ability to handle many connections concurrently using callbacks, but if there is no work pending, it will sleep\cite{node}. This is in opposition to the current common concurrency model that employs operating system threads, as thread-based networking can be relatively difficult to use and inefficient. Node users need not worry of processes dead-locking, since no locks exist. I/O processes never block, because very few functions in Node directly perform I/O, as a result of this scalable systems are feasible to build using Node. Node presents an event loop as a runtime construct rather than as a library. Node will enter this event loop after execution of an input script, and exit the event loop once all callbacks have been performed\cite{node}.
     
 \subsection{JavaScript to Machine Code via the Google Chrome V8 Engine}
-	\subsubsection{What is it?}
-    	The V8 Engine is an open source high-performance JavaScript engine from Google, written in C++ that is used in Google Chrome, NodeJS, and more. The V8 Engine can be embedded into any C++ application or run standalone\cite{googleV8}. \emph{"V8 implements ECMAScript as specified in ECMA-262, 5th edition, and runs on Windows (XP or newer), Mac OS X (10.5 or newer), and Linux systems that use IA-32, x64, or ARM processors."}\cite{googleV8} 
-	\subsubsection{How does it work?}
+	\subsubsection{Overview}
+    	The V8 Engine is an open source high-performance JavaScript engine from Google, written in C++ that is used in Google Chrome, Node, and more. The V8 Engine can be embedded into any C++ application or run standalone\cite{googleV8}. \emph{"V8 implements ECMAScript as specified in ECMA-262, 5th edition, and runs on Windows (XP or newer), Mac OS X (10.5 or newer), and Linux systems that use IA-32, x64, or ARM processors."}\cite{googleV8} 
+	\subsubsection{Technical details}
     The V8 Engine is capable of compiling and executing JavaScript source code, handling allocation of memory for objects, as well as garbage collection for redundant objects that are no longer needed. This garbage collector is key to the V8 Engines performance. Designed specifically for quick execution of large JavaScript applications, there are three primary areas tied to the V8 Engines performance: 
     \begin{enumerate}
     \item Fast Property Access
@@ -209,16 +209,53 @@ Docker can aid the above in the following ways:
     	\end{itemize}
     \item Efficient Garbage Collection
     	\begin{itemize}
-    	\item The V8 Engine will garbage collect objects that are no longer needed, reclaiming the memory used by said objects. The V8 Engine uses a \emph{"stop-the-world, generational, accurate, garbage collector"}\cite{googleV8} to make sure that object allocation is fast, garbage collection is short, and no memory fragmenting occurs.
+    	\item The V8 Engine will garbage collect objects that are no longer needed, reclaiming the memory used by said objects. The V8 Engine uses a \emph{"stop-the-world, generational, accurate, garbage collector"}\cite{googleV8} to make sure that object allocation is fast, garbage collection is short, and no memory fragmenting occurs. The V8 Engine will stop the program execution during a garbage collection cycle, only partially processes the object heap during garbage collection cycles, and always knows where all objects and pointers are in memory.\cite{googleV8}
     	\end{itemize}
     \end{enumerate}
     
-    
-    	
-
 \subsection{The Event Loop}
+	\subsubsection{Overview}
+    	The event loop allows Node to carry out non-blocking I/O operations, even though JavaScript is single-threaded via offloading of operations to the system kernel when possible\cite{node}. As most modern system kernels are capable of multi-threading, this means that multiple operations can be executing in the background. On completion of an operation a callback is added to a poll queue that will be executed over the course of time\cite{node}. 
+    \subsubsection{Callbacks}
+    Despite the fact that callbacks look similar to events, the key difference between the two are that callbacks are called once an asynchronous function returns, as opposed to an event which works using an observable. A Callback is similar to an asynchronous function, upon completion of a task, a callback function is called. Node uses and supports callbacks throughout all of its application programming interfaces, thus callbacks combined with asynchronous function calls maintains concurrency in Node. 
+    \subsubsection{Technical explanation}
+   On start Node initializes the event loop, processes the provided input script which can make asynchronous application programming interface calls, schedule timers, or call the next tick method on the process, and begins the event loop which can be seen in \ref{fig:eventLoop}. 
+\begin{figure}
+\includegraphics[width=\textwidth]{img/eventLoop.PNG}
+\caption{Node Event Loop stages}
+\label{fig:eventLoop}
+\end{figure}
 
-\subsection{Typescript integration with NodeJS}
+\noindent For each stage of the event loop there is a first-in-first-out queue of callbacks waiting to be executed. Upon entry of a stage within' the event loop, operations which are specific to that stage are carried out, then callbacks are executed on the stage's queue until either it has been fulfilled entirely, or the callback limit has been reached, once that is done the event loop will proceed to the next stage, et cetera\cite{node}. As these operations can schedule other operations or new events to be processed in the poll stage, which can carry out events as new events are polled. The outcome of this is that the poll phase may go on much longer than a timer's inception. The stages are as follows:
+\begin{enumerate}
+\item \textbf{Timers:}
+	\begin{itemize}
+	\item Controlled by the poll stage the timer outlines an opening at which point a provided callback can be executed, as opposed to an exact time someone desires it to be done. Once a certain time frame has gone by, timer callbacks will run. Although they could be delayed by other callbacks or Operating system scheduling. \emph{"Note: To prevent the poll phase from starving the event loop, libuv (the C library that implements the Node.js event loop and all of the asynchronous behaviors of the platform) also has a hard maximum (system dependent) before it stops polling for more events."}\cite{node}
+	\end{itemize}
+\item \textbf{I/O Callbacks:}
+	\begin{itemize}
+	\item In the I/O Callbacks stage, system operations callbacks like TCP errors for example, are executed, most callbacks are executed except close callbacks, those scheduled by timers, and set immediate calls .\cite{node}
+	\end{itemize}
+\item \textbf{Idle, prepare:}
+	\begin{itemize}
+	\item This is only used internally.\cite{node}
+	\end{itemize}
+\item \textbf{Poll:}
+	\begin{itemize}
+	\item The poll stage will execute scripts for timers where their opening has closed, and process events within the poll queue. If there are no timers scheduled upon entry of the poll stage either the event loop will go over its  callbacks queue, executing each one after another in a synchronous manner until all callbacks have been executed, or a limit is reached, if the poll queue is populated. Alternatively if the poll queue is not populated either the poll stage will be ended by the event loop and the check stage begin, or the event loop will wait until callbacks are added to the queue then immediately execute them.\cite{node} When the poll queue has been emptied the event loop will then check for timers whose openings have ended. If this is the case for one or many, the event loop will then return to the timers stage and execute its callbacks.
+	\end{itemize}
+\item \textbf{Check:}
+	\begin{itemize}
+	\item In this stage any \verb|setImmediate()| callbacks will be invoked. Also: \emph{"This phase allows a person to execute callbacks immediately after the poll phase has completed."}\cite{node}.
+	\end{itemize}
+\item \textbf{Close callbacks:}
+	\begin{itemize}
+	\item Here \verb|process.nextTick()| will be called, but what is that exactly? In Node, each iteration of the event loop is called a "tick". The  \verb|process.nextTick()| function is specific to the Node event loop and when it is used a callback function runs immediately after the events in an event queue have been processed by an iteration of the event loop.  \verb|process.nextTick()| is similar to JavaScript's \verb|setTimeout()| function but operates much faster as it does not have to use JavaScript's runtime to schedule its queue of events.
+	\end{itemize}
+\end{enumerate}
+
+
+\subsection{Typescript integration with Node}
 
 \subsection{Conclusion}
 
