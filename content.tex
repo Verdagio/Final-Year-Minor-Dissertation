@@ -85,7 +85,7 @@ Kanban supports continuous workflow, termed Value Stream, when it is applied as 
 Agile Kanban is a Kanban approach to Agile Software Development. In Agile Kanban, the Kanban board is used as a visualization of the workflow. The board will display the status and progress being made on individual tasks, where they can be tracked. Consider Figure \ref{fig:kanban}
 
 \paragraph{}
-Git workflow as a version control tool is a system that tracks modifications to a file(s) over the lifetime of a project so that a developer or team can recall specific versions at a later stage. A very common version-control method is to copy files from one directory to another directory. This method is common because it is easy, but is incredibly error prone. It is easy to mistake the directory that is currently active and accidentally write to the incorrect file or copy over files that were not intended to be.\cite{chachon} The main difference between Git and other version control software tools is the way Git handles its data. Where other systems use what is often referred to as delta-based version control, they store information as a set of files and the changes made to each file over time, Git does not  store its data this way. Instead, Git stores its data more like a collection of snapshots of a miniature file system. In Git, whenever a commit is made, a picture of what all the files look like at that point in time is taken and stored as a reference to that snapshot.\cite{chachon} If any of the files have not been changed, Git does not store the file again, just a pointer to the previous file it has already collected and stored. "Git thinks about its data more like a stream of snapshots."\cite{chachon}
+Git workflow as a version control tool is a system that tracks modifications to a file or files over the lifetime of a project so that a developer or team can recall specific versions at a later stage. A very common version-control method is to copy files from one directory to another directory. This method is common because it is easy, but is incredibly error prone. It is easy to mistake the directory that is currently active and accidentally write to the incorrect file or copy over files that were not intended to be.\cite{chachon} The main difference between Git and other version control software tools is the way Git handles its data. Where other systems use what is often referred to as delta-based version control, they store information as a set of files and the changes made to each file over time, Git does not  store its data this way. Instead, Git stores its data more like a collection of snapshots of a miniature file system. In Git, whenever a commit is made, a picture of what all the files look like at that point in time is taken and stored as a reference to that snapshot.\cite{chachon} If any of the files have not been changed, Git does not store the file again, just a pointer to the previous file it has already collected and stored. "Git thinks about its data more like a stream of snapshots."\cite{chachon}
 
 
 
@@ -102,7 +102,6 @@ Git workflow as a version control tool is a system that tracks modifications to 
 \caption{Git branches}
 \label{fig:branches}
 \end{figure}
-
 
 \paragraph{}
 Once the task is finished passing all integration and acceptance tests, moved into the DONE state. Before a task can be put into the Done state the developer assigned to the task, must create a Pull Request for the task, which in turn will be reviewed by their colleagues / management to confirm that the task meets the specification of the task, conforms to the quality requirements expected, and works as expected\cite{driessen}.
@@ -139,10 +138,8 @@ An application does not have to be built from the ground up with Docker, as exis
 
 Because Docker packages applications and their dependencies together into an isolated container, this makes them portable to any infrastructure, making them suitable for Cloud migration, multi-cloud or hybrid cloud infrastructures. Thus eliminating the age-old “works on my machine” problem. The Docker Certified Infrastructure guarantees that the containerized applications work consistently. It provides an integrated environment for multiple distributions of enterprise Linux, as well as on Cloud providers such as Amazon Web Services, Azure and IBM. Docker Certified containers provide trusted independent software vendor products packaged and distributed via Docker containers. Docker Certified plug ins provide easy to download and install containers for an environment, as well as networking and volume plug ins.
 
-\subsection{Continuous Integration and Microservices}
+\subsection{Continuous Integration and Services}
 Docker also provides tools and strategies to Developer Operations (Dev Ops) teams. John Willis’ White paper on “Docker and the Three Ways of DevOps“, outline three principles known as “The Three Ways of DevOps”, and describes the purpose of these principles, how to apply these principles using Docker within organizations, and the results and benefits from doing so. 
-
-
 
 \textbf{\emph{“The First Way: System Thinking”}}
 
@@ -190,13 +187,34 @@ Docker can aid the above in the following ways:
 "In this “Third Way”, the symbol of a complete loop is used because it ties the first two ways together through a rigorous implementation of a learning process."\cite{willis} The word Kaizen is often seen as an approach of continuous improvement within an organization. This approach being fulfilled through a culture of continuous experimentation and learning in all parts of the organization\cite{willis}. The speed to market is essential in the deliverance of software and services. It is also the speed at which reaction, and reproduction to customers validation of the delivered service. The major principles of the Dev Ops mindset all point to outcomes like rapid innovation, increased quality and a feedback loop of continuous learning. "The Docker platform uniquely allows organizations to apply tools into their application environment to accelerate the rate of change, reduce friction and improve efficiencies."\cite{willis}.
 
 \subsection{Conclusion}
-	To summarize, Docker as a development tool is relatively easy to pick up and implement, due to the fact that it is well supported and documented by its community. However, it comes with a steep learning curve as you traverse deeper into its more advanced features and functionality. The isolated environments Docker containers provide enables work across different machines regardless of the underlying infrastructure, which in the case of this project, provided an easy work flow during cross examination, merging, and service integration. Going forward Docker will continue to make this project more and more versatile, secure, quick, and easy to maintain because of the Dockers ethos. Long after the project has been deployed and it is in use by the product owner, integration engineers and developer operations teams should find processes like: onboarding new services, or analyzing and repairing problematic services easy to identify, then address, seamless and fast. Finally with the exponential growth in adoption rate of Docker over the last couple of years, virtual machines may very well be a thing of the past in years to come.
+	To summarize, Docker as a development tool is relatively easy to pick up and implement, due to the fact that it is well supported and documented by its community. However, it comes with a steep learning curve as you traverse deeper into its more advanced features and functionality. The isolated environments that Docker containers provide, enables work across different machines regardless of the underlying infrastructure, which in the case of this project, provided an easy work flow during cross examination, merging, and service integration. Going forward Docker will continue to make this project more and more versatile, secure, quick, and easy to maintain because of the Docker ethos. Long after the project has been deployed and it is in use by the product owner, integration engineers and developer operations teams should find processes like: onboarding new services, or analyzing and repairing problematic services easy to identify, then address, seamlessly and fast. Finally with the exponential growth in adoption rate of Docker over the last couple of years, virtual machines may very well be a thing of the past in years to come.
 
 \section{NodeJS}
 \subsection{About Node}
-	Node is designed as an asynchronous event driven JavaScript runtime for scalable network applications built off Google Chrome's V8 Engine. Google Chrome's V8 Engine will translate the JavaScript, which Node API's are written in, into machine readable code. Node provides the ability to handle many connections concurrently using callbacks, but if there is no work pending, it will sleep\cite{nodejs}. This is in opposition to the current common concurrency model that employs operating system threads, as thread-based networking can be relatively difficult to use and inefficient. Node users need not worry of processes dead-locking, since no locks exist. I/O processes never block, because very few functions in Node directly perform I/O, as a result of this scalable systems are feasible to build using Node. Node presents an event loop as a runtime construct rather than as a library. Node will enter this event loop after execution of an input script, and exit the event loop once all callbacks have been performed\cite{nodejs}.
+	Node is designed as an asynchronous event driven JavaScript runtime for scalable network applications built off Google Chrome V8 Engine. Google Chrome V8 Engine will translate the JavaScript, which Node API's are written in, into machine readable code. Node provides the ability to handle many connections concurrently using callbacks, but if there is no work pending, it will sleep\cite{nodejs}. This is in opposition to the current common concurrency model that employs operating system threads, as thread-based networking can be relatively difficult to use and inefficient. Node users need not worry of processes dead-locking, since no locks exist. I/O processes never block, because very few functions in Node directly perform I/O, as a result of this scalable systems are feasible to build using Node. Node presents an event loop as a runtime construct rather than as a library. Node will enter this event loop after execution of an input script, and exit the event loop once all callbacks have been performed\cite{nodejs}.
     
-\subsection{JavaScript to Machine Code via Chrome V8 Engine}
+\subsection{JavaScript to Machine Code via the Google Chrome V8 Engine}
+	\subsubsection{What is it?}
+    	The V8 Engine is an open source high-performance JavaScript engine from Google, written in C++ that is used in Google Chrome, NodeJS, and more. The V8 Engine can be embedded into any C++ application or run standalone\cite{googleV8}. \emph{"V8 implements ECMAScript as specified in ECMA-262, 5th edition, and runs on Windows (XP or newer), Mac OS X (10.5 or newer), and Linux systems that use IA-32, x64, or ARM processors."}\cite{googleV8} 
+	\subsubsection{How does it work?}
+    The V8 Engine is capable of compiling and executing JavaScript source code, handling allocation of memory for objects, as well as garbage collection for redundant objects that are no longer needed. This garbage collector is key to the V8 Engines performance. Designed specifically for quick execution of large JavaScript applications, there are three primary areas tied to the V8 Engines performance: 
+    \begin{enumerate}
+    \item Fast Property Access
+    	\begin{itemize}
+    	\item With JavaScript's dynamic nature, the properties of objects can be added or removed while in progress, which means that they are likely to change. To reduce the time complexity of accessing JavaScript properties, the V8 Engine dynamically creates hidden classes in the background. When a property is added or removed this hidden class will be updated, rather than using a dynamic lookup to resolve the property's location in memory\cite{googleV8}. \emph{"There are two advantages to using hidden classes: property access does not require a dictionary lookup, and they enable V8 to use the classic class-based optimization, inline caching."}\cite{googleV8} 
+    	\end{itemize}
+    \item Dynamic Machine Code Generation
+    	\begin{itemize}
+    	\item The V8 Engine will determine the state of an object's current hidden class at initial code execution for property access of any given object. Property access is optimized by prediction of future use of a class for any future objects accessed in the same code section and usage of information from the class to patch inline cached code used to the hidden class\cite{googleV8}. \emph{"The combination of using hidden classes to access properties with inline caching and machine code generation optimises for cases where the same type of object is frequently created and accessed in a similar way. This greatly improves the speed at which most JavaScript code can be executed."}\cite{googleV8}
+    	\end{itemize}
+    \item Efficient Garbage Collection
+    	\begin{itemize}
+    	\item The V8 Engine will garbage collect objects that are no longer needed, reclaiming the memory used by said objects. The V8 Engine uses a \emph{"stop-the-world, generational, accurate, garbage collector"}\cite{googleV8} to make sure that object allocation is fast, garbage collection is short, and no memory fragmenting occurs.
+    	\end{itemize}
+    \end{enumerate}
+    
+    
+    	
 
 \subsection{The Event Loop}
 
@@ -256,6 +274,18 @@ About three pages.
 
 \begin{itemize}
 \item Briefly summarise your context and ob-jectives (a few lines).
-\item Highlight your findings from the evalua-tion section / chapter and any opportuni-ties identified.
+\item Highlight your findings from the evaluation section / chapter and any opportuni-ties identified.
 \end{itemize}
+
+\chapter{Appendix}
+\begin{itemize}
+\item \textbf{Source code Git Repository:} \url{https://bitbucket.org/deltaready-mcs/mcs-microservices-mono-repo}
+\item \textbf{Dissertation Git Repository:} \url{https://github.com/Verdagio/Final-Year-Minor-Dissertation}
+\end{itemize}
+
+
+
+
+
+
 
