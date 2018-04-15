@@ -175,31 +175,44 @@ And indeed perhaps one of the biggest benefits is enabling IDEs to provide a ric
 % Subsection TSLINT
 \subsection{TSLint Configuration}
 
-TSLint\cite{tslint} is an extensible static analysis tool very similar to ESLint for JavaScript. 
+A linter or lint refers to a tool that is used to analyze source code and flag bugs, stylistic or programmatic errors. TSLint\cite{tslint} is an extensible static analysis tool very similar to ESLint for JavaScript. TSLint checks TypeScript code for readability, maintainability and functionality errors and makes for a much cleaner and systematic codebase. This helps developers and co-workers to maintain both small and large projects, keeping consistency throughout.
 
-Add some notes about TSLint, maybe a screenshot of TSlint
+TSLint employs a simple \texttt{tslint.json} file in order to work with the TSLint NPM package. The JSON file defines a basic set of rules to enforce upon TypeScript code and make sure it conforms to a standard. For example, in a JavaScript or TypeScript environment it is natural to conform the use of quotation marks to either double or more commonly single quotes. This becomes helpful as it reduces small annoying problems that can be encountered when working in teams.
+It is also very common to utilize git hooks\cite{githooks} as a pre-commit rule to make sure all code is passing the linter without throwing any errors.
 
-Code snippet of tslint.json?
+\subsection*{Example \texttt{tslint.json}}
+\begin{minted}{json}
+{
+    "extends": "tslint:latest",
+    "rules": {
+        "quotemark": [true, "single", "avoid-escape"],
+        "ordered-imports": [true, {
+            "import-sources-order": "any",
+            "named-imports-order": "case-insensitive"
+        }]
+    }
+}
+\end{minted}
 
 \subsection{Integration with Node.js}
-The base scaffolding for a Node.js server application using TypeScript can be handled using a series of npm scripts\cite{npmscripts}. Microsoft offer a number of samples for getting started with using TypeScript and various libraries such as React and Express\cite{typescript}.
+The base scaffolding for a Node.js server application using TypeScript can be handled using a series of NPM scripts\cite{npmscripts} defined in an application \texttt{package.json}. Microsoft offer a number of samples for getting started with using TypeScript and various libraries such as React and Express\cite{typescript}.
 
-TypeScript source code is contained in a directory \textbf{src} and transpiled to JavaScript contained in a directory \textbf{lib}.
+TypeScript source code is contained in a directory \texttt{src} and transpiled to JavaScript contained in a directory \texttt{lib}.
 Using the tools provided by NPM for managing scripts, the aim is to employ a number of scripts for various tasks such as:
 
 \begin{itemize}
-\item{"clean" - Remove contents of the \textbf{lib} directory}
-\item{"build" - Transpile TypeScript to JavaScript}
-\item{"lint" - Check for readability, maintainability \& functionality errors}
-\item{"watch" - Run the application in development mode}
-\item{"postinstall" - Rebuild upon install}
-\item{"start" - Run the application}
-\item{"test" - Run the application unit tests}
+\item{\texttt{"clean"} - Remove contents of the \textbf{lib} directory}
+\item{\texttt{"build"} - Transpile TypeScript to JavaScript}
+\item{\texttt{"lint"} - Check for readability, maintainability \& functionality errors}
+\item{\texttt{"watch"} - Run the application in development mode}
+\item{\texttt{"postinstall"} - Rebuild upon install}
+\item{\texttt{"start"} - Run the application}
+\item{\texttt{"test"} - Run the application unit tests}
 \end{itemize}
 
 Combining the usage of a number of the scripts used for various tasked documented above it can be made relatively straight forward to direct and manage a TypeScript development environment accompanied with unit tests, linting and debugging using Chrome dev tools\cite{nodedebug}. 
 
-\subsection*{Example Package.json Scripts }
+\subsection*{Example Snippet \texttt{package.json } }
 
 \begin{minted}[breaklines]{json}
 "scripts": {
