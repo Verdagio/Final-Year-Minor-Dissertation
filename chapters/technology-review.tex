@@ -166,6 +166,7 @@ Docker can aid the above in the following ways:
 \section{Databases}
 \subsection{PostgreSQL}
 \subsection{CouchDB} %shell scripting
+\subsection{Radicale}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - Microsoft Bot Framework
@@ -177,7 +178,37 @@ Docker can aid the above in the following ways:
 % Section - JSON - JSON wrapper for radicale XML
 %			JWT?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{JSON}
+\subsection{Overview}
+	The JavaScript Object Notation (JSON) object is a text-based, versatile data interchange format, derived from ECMAScript Programming Language Standard. JSON describes formatting rules for portable representations of data structures\cite{crockford}. It can neither be called nor constructed, and does not contain any major functionality\cite{ecma}. JSON is capable of representing objects, arrays, and other primitive data types such as boolean, numbers, strings, or null\cite{crockford}.  A JSON object would take a form similar to the following example:
+\begin{lstlisting}
+{
+  "student" : {
+	"name" : "Jake Johnson",
+	"course" : {
+		"name" : "Computer Science",
+		"year" : 3,
+		"modules" : [ "O.O.P.", "O.S.", "Web Apps" ],
+		}
+  	}
+}
+\end{lstlisting}
+\subsection{Functions}
+The JSON object contains functions \emph{parse} and \emph{stringify}, used to parse or construct JSON text. 
+\begin{enumerate}
+\item \textbf{parse} This function will parse a JSON formatted string and return its ECMAScript value. \emph{"The JSON format is a restricted form of ECMAScript literal. JSON objects are realized as ECMAScript objects. JSON arrays are realized as ECMAScript arrays. JSON strings, numbers, booleans, and null are realized as ECMAScript Strings, Numbers, Booleans, and null."\cite{crockford}}
+\item \textbf{stringify} This function will take a ECMAScript value and return a string representation of the object in JSON format. \cite{crockford}
+\end{enumerate}
+\subsection{Grammer}
+JSON and ECMAScript source text are relatively similar. JSON is built up of a series of characters which adhere to the guidelines of SourceCharacter. There are two forms of JSON grammer:
+\begin{enumerate}
+\item \textbf{Lexical} \emph{"JSON Lexical Grammar defines the tokens that make up a JSON text similar to the manner that the ECMAScript lexical grammar defines the tokens of an ECMAScript source text."\cite{ecma}} 
+\item \textbf{Syntactic} \emph{"JSON Syntactic Grammar defines a valid JSON text in terms of tokens defined by the JSON lexical grammar. The goal symbol of the grammar is JSONText."\cite{ecma}}
+\end{enumerate}
 
+
+
+\section{XML}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - Conclusion
