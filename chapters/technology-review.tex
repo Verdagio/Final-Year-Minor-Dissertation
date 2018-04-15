@@ -170,10 +170,47 @@ With the use of TypeScript Classes and Interfaces, Inheritance is also provided 
 The use of Static Typing within TypeScript is a massive bonus for developers both coming from common JavaScript and indeed other statically typed languages such as Java. Static typing or strong typing means that the type of a variable is known at compile time. In contrast, weakly typed or dynamically typed languages associate the type with runtime and as a result types do not need to be specified.
 \end{itemize}
 
-And indeed perhaps one of the biggest benefits is enabling IDEs to provide a richer environment for spotting common errors as you write code, which can be one of the most frustrating aspects of writing common JavaScript.
+And indeed perhaps one of the biggest benefits is enabling IDEs to provide a richer environment for spotting common errors as you write code, which can be one of the most frustrating aspects of writing common JavaScript. Anders Hejlsberg, lead architect of the C\# programing language at Microsoft has worked a lot on the development of TypeScript and therefore both languages syntactically share many similarities\cite{andershejlsberg}.
+
+\subsection{TSLint}
+
+Add some notes about TSLint, maybe a screenshot of TSlint
+
+Code snippet of tslint.json?
 
 \subsection{Integration with Node.js}
+The base scaffolding for a Node.js server application using TypeScript can be handled using a series of npm scripts\cite{npmscripts}. Microsoft offer a number of samples for getting started with using TypeScript and various libraries such as React and Express\cite{typescript}.
 
+TypeScript source code is contained in a directory \textbf{src} and transpiled to JavaScript contained in a directory \textbf{lib}.
+Using the tools provided by NPM for managing scripts, the aim is to employ a number of scripts for various tasks such as:
+
+\begin{itemize}
+\item{"clean" - Remove contents of the \textbf{lib} directory}
+\item{"build" - Transpile TypeScript to JavaScript}
+\item{"lint" - Check for readability, maintainability \& functionality errors}
+\item{"watch" - Run the application in development mode}
+\item{"postinstall" - Rebuild upon install}
+\item{"start" - Run the application}
+\item{"test" - Run the application unit tests}
+\end{itemize}
+
+Combining the usage of a number of the scripts used for various tasked documented above it can be made relatively straight forward to direct and manage a TypeScript development environment accompanied with unit tests, linting and debugging using Chrome dev tools\cite{nodedebug}. 
+
+\subsection*{Example Package.json Scripts }
+
+\begin{minted}[breaklines]{json}
+"scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint --force --format verbose \"src/**/*.ts\" && tslint --force --format verbose \"test/**/*.ts\"",
+    "build": "npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
+    "postinstall": "npm run build",
+    "start": "npm run build && node lib/server.js | bunyan",
+    "test": "npm run build && cross-env NODE_ENV=test mocha --nolazy --require source-map-support/register --require ts-node/register --recursive 'test/**/*.spec.ts'",
+    "watch": "concurrently -rk \"npm run build -- --watch\" \"nodemon --nolazy --inspect=0.0.0.0:9229 -d 20 lib/server.js | bunyan\"",
+    "watch:test": "npm run test -- --watch-extensions",
+    "watch:test:debug": "npm run watch:test -- --inspect-brk=0.0.0.0:9229"
+}
+\end{minted}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - Databases
 %			The Model
@@ -194,22 +231,28 @@ And indeed perhaps one of the biggest benefits is enabling IDEs to provide a ric
 % Section - JSON - JSON wrapper for radicale XML
 %			JWT?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{JSON}
-\subsection{Overview}
+\section{Data Objects / Structures}
+\subsection{JSON}
 	The JavaScript Object Notation (JSON) object is a text-based, versatile data interchange format, derived from ECMAScript Programming Language Standard. JSON describes formatting rules for portable representations of data structures\cite{crockford}. It can neither be called nor constructed, and does not contain any major functionality\cite{ecma}. JSON is capable of representing objects, arrays, and other primitive data types such as boolean, numbers, strings, or null\cite{crockford}.  A JSON object would take a form similar to the following example:
-\begin{lstlisting}
+\\
+\\
+\\
+\begin{minted}{json}
 {
-  "student" : {
-	"name" : "Jake Johnson",
-	"course" : {
-		"name" : "Computer Science",
-		"year" : 3,
-		"modules" : [ "O.O.P.", "O.S.", "Web Apps" ],
-		}
-  	}
+	"student" : {
+		"name" : "Jake Johnson",
+		"course" : {
+			"name" : "Computer Science",
+			"year" : 3,
+			"modules" : [ 
+				{"name" : "O.O.P."},
+				{"name" : "O.S."},
+				{"name" : "Web Apps"} 
+			]}
+	}
 }
-\end{lstlisting}
-\subsection{Functions}
+\end{minted}
+\subsubsection{Functions}
 The JSON object contains functions \emph{parse} and \emph{stringify}, used to parse or construct JSON text. 
 \begin{enumerate}
 \item \textbf{parse} This function will parse a JSON formatted string and return its ECMAScript value. \emph{"The JSON format is a restricted form of ECMAScript literal. JSON objects are realized as ECMAScript objects. JSON arrays are realized as ECMAScript arrays. JSON strings, numbers, booleans, and null are realized as ECMAScript Strings, Numbers, Booleans, and null."\cite{crockford}}
@@ -222,9 +265,43 @@ JSON and ECMAScript source text are relatively similar. JSON is built up of a se
 \item \textbf{Syntactic} \emph{"JSON Syntactic Grammar defines a valid JSON text in terms of tokens defined by the JSON lexical grammar. The goal symbol of the grammar is JSONText."\cite{ecma}}
 \end{enumerate}
 
+\subsection{XML}
+	Extensible Markup Language (XML) is a derivative of Standard Generalized Markup Language (SGML)(ISO 8879). It partially describes behaviors of applications which process a class of data objects known as XML documents \cite{w3c}. These documents are built up of units named entities, an entity can contain either parsed or unparsed data. \emph{"XML provides a mechanism to impose constraints on the storage layout and logical structure."}\cite{w3c}. XML was developed with the following goals intended:
+\begin{quotation}"
+\begin{enumerate}
+ \item XML shall be straightforwardly usable over the Internet.
+	\item XML shall support a wide variety of applications.
+	\item XML shall be compatible with SGML.
+	\item It shall be easy to write programs which process XML documents.
+	\item The number of optional features in XML is to be kept to the absolute minimum, ideally zero.
+	\item XML documents should be human-legible and reasonably clear.
+	\item The XML design should be prepared quickly.
+	\item The design of XML shall be formal and concise.
+	\item XML documents shall be easy to create.
+	\item Terseness in XML markup is of minimal importance.
+    \end{enumerate}"\cite{w3c}
+\end{quotation}
 
+\subsubsection{XML Example}
+\begin{minted}{xml}
+<student>
+	<name>Jake Jackson</name>
+	<course>
+		<name>Computer Science</name>
+		<year>3</year>
+		<modules>
+			<module><name>O.O.P.</name></module>
+			<module><name>O.S.</name></module>
+			<module><name>Web Apps</name></module>
+		</modules>
+	</course>
+</student>
+\end{minted}
 
-\section{XML}
+\subsection{JSON Wrapper for XML}
+
+    
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - Conclusion
