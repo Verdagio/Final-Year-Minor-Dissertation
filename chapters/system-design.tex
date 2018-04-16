@@ -73,15 +73,156 @@ In order to provide communication via services or processes it is standard to us
 \subsection*{ 4. Decentralisation }
 Decentralisation of services infers a substantial amount of additional complexities within an application ecosystem. How does a client know what service it needs to contact in a cloud or distributed network? API Gateways\cite{APIGateways} and Service Discovery\cite{ServiceDiscovery} are two critical concepts in Microservice Architecture. An API Gateway uses a Facade pattern\cite{Gamma:1995:DPE:186897} from object orientated design to encapsulate how requests are made to a number a services. This minimises code complexity on the client side and eliminates direct calls to services made by the client. The API Gateway is used in conjunction with a Service Discovery pattern. This may be either client side or server side. Service Discovery employs the use of a service registry, a database of network locations of available service instances\cite{ServiceDiscovery}.
 
+% Containerisation -------------------------------------
+\section{Containerisation with Docker}
+Docker \cite{Docker} is a containisation platform that utilises the host operating system using lightweight images at the application layer to build and ship applications effectively and quickly. Containers can be considered as instances of images  running in isolated processes. They are often compared to virtual machines however they are more lightweight and can share the host OS kernal with many other containers. Virtual machines often take a couple of minutes to start whereas containers launch in a number of seconds. Container images are substantially smaller than virtual machines and are typically tens of MBs in size. In the last number of years Docker has become an industry leader in the world of Microservice Architecture. Sinnott and Korzhirbayev carried out a comparison of container-based technologies for the cloud\cite{KOZHIRBAYEV2017175} where they analyse Docker and evaluate pros and cons of container-based technologies based on in depth research of a number of performance metrics such as CPU, Disk I/O and Network I/O performance.
+
+My Consultancy Services aims to provide containerisation of all services throughout the application. For example, housed in the mono repository of the project is a number of sub directories each containing a distinct containerised service. Such as:
+
+\begin{itemize}
+\item{Accounts Service}
+\item{Calendar Service}
+\item{Accounts Database}
+\item{CouchDB Per User}
+\item{Calendar Server}
+\end{itemize}
+
+
+Each service is distinct in its own right and available throughout the Docker network at its own service URL.
+
+\subsection{Dockerfiles and Docker Compose}
+
+The system utilizes Dockerfiles and Docker Compose for container orchestration.
+
+Containers are built with Docker using Dockerfiles\cite{dockerfile}. A Dockerfile is a declarative file in which instructions for images containing applications or services are defined. For example, a basic Dockerfile may include:
+
+\begin{itemize}
+\item
+A base image
+
+\item
+Installation of Dependencies
+
+\item
+Adding of source code
+
+\item
+Exposing ports to the host OS
+
+\item
+Commands for starting an application
+\end{itemize}
+
+\subsection*{ Example Dockerfile }
+
+\begin{minted}{Dockerfile}
+# Base Image
+FROM node:alpine
+
+# Specify a working directory
+WORKDIR /app
+
+# Add package.json and install dependencies
+ADD package.json /app/package.json
+RUN npm install
+
+# Add application source code
+ADD . /app
+
+# Expose port 3000 on host machine
+EXPOSE 3000
+
+# Start the server
+CMD ["node", "server.js"]
+\end{minted}
+
+More detailed and complex configurations can also be defined such as environment variables and volumes. Volumes provide a way in which containers can persist data. Smart, Nguyen and Jaramillo provide excellent analysis of how Docker technology can be leveraged in Microservice Architecture \cite{LeveragingMicroservicesArchDocker}.
+
+% Docker compose
+Docker compose can be used for the orchestration of multiple containers specifying their build paths to each service's respective Dockerfile. Similar to Dockerfiles a number of configuration settings can be defined here. John Zaccone\cite{JohnZaccone}, a Docker Captain, provides an excellent example using Docker Compose in his keynote at Dockercon 2017, the source code of his demo application can be found on his Github \cite{dockercompose}.
+
+\subsection{Containerised Development Environments}
+Through the use of volumes, a \texttt{docker-compose.debug.yml} file can be defined which allows development in a containerised environment. It is essential to have a good understanding of how an application behaves in a containerised environment for production purposes and therefore taking the extra time to setup a development environment which closely mimics this is truly a beneficial endeavour. 
+
+\subsection*{Example \texttt{docker-compose.debug.yml}}
+
+\begin{minted}{yaml}
+version: "3"
+
+services:
+    account-service-api:
+        image: "account-service-api"
+        build: .
+        user: "node"
+        working_dir: /home/node/app
+        volumes:
+            - .:/home/node/app
+        ports:
+            - "9000:9000"
+            - "9229:9229" # Expose ports for debugging via Chrome Inspect
+        depends_on:
+            - "account-database"
+            - "calendar-service-api"
+            - "couchdb"
+        command: "npm run watch"
+
+    account-database:
+        image: "account-database"
+        build:
+            context: ../account-database
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        restart: always
+
+    calendar-service-api:
+        image: "calendar-service-api"
+        build:
+            context: "../calendar-service-api"
+        ports:
+            - "9001:9001"
+        depends_on:
+            - "radicale-caldav-server"
+        command: "npm run start"
+
+    couchdb:
+        image: "couchdb"
+        build:
+            context: ../couchdb-per-user
+        volumes:
+            - couchdb-data:/opt/couchdb/data
+        ports:
+            - "5984:5984"
+        restart: always
+
+    couchdb-configurator:
+        image: "couch-configurator"
+        build:
+            context: ../couchdb-per-user/configurator
+        depends_on:
+            - couchdb
+        command: ["/wait-for-couchdb.sh", "couchdb", "5984", "/configure-couchdb.sh"]
+
+    radicale-caldav-server:
+        image: "radicale-caldav-server"
+        build:
+            context: "../radicale-caldav-server"
+        ports:
+            - "5232:5232"
+        volumes:
+            - cal-data:/home/radicale/data
+            - config:/home/radicale/config
+        restart: always
+
+volumes:
+    db-data:
+    couchdb-data:
+    cal-data:
+    config:
+\end{minted}
+
+% SHOULD THIS BE HERE???
 % Conclusion -------------------------------------------
 \section{Conclusion}
 While this overview may suggest that Microservice Architecture is a fantastic solution for many reoccurring problems in an application design, it should be considered by no means a silver a bullet \cite{BuildingMicroServices}. Microservice Architecture certainly adds a number of complexities and is often considered very risky to begin with as adopting this style can be very difficult to get right. Every application has different requirements and perhaps a simpler approach should be taken in the beginning. It is not uncommon to start with a monolith and later refactor to a Microservice based design. CTO of NPM Laurie Voss explains in his keynote how NPM began as a monolith and later refactored to a Microservice Architecture and is now the world's largest software registry\cite{npm}. So while Microservices and indeed Docker may not be the cure to address every aspect of software design and architecture, they both definitely have a lot promising and helpful tools to offer.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% REMOVE THIS WHEN READY
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-As many pages as needed.
-\begin{itemize}
-\item Architecture, UML etc. An overview of the different components of the system. Diagrams etc… Screen shots etc.
-\end{itemize}
-
