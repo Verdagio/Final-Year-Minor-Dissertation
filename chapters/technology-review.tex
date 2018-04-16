@@ -275,17 +275,23 @@ request()
 \section{Databases}
 \subsection{PostgreSQL}
 
+PostgreSQL is an object-relational database system. Comically PostgreSQL is often referred to as being around since the days of dinosaurs by the members of the software engineering community. And indeed somewhat rightfully so, as it has more than 20 years of active development going back as far as 1996. Its name Postgres even comes from the very earliest of databases Ingres\cite{postgresguide} However, it has not always been the most popular and has often been neglected in favour of Oracle and MySQL. Oracle and MySQL relational databases are the top 2 most widely used databases\cite{dbrankings} however in the last number of years PostgreSQL has made a resurgence. This may be somewhat to do with the proven architecture that has gained a very good reputation for reliability, data integrity and correctness\cite{postgres}. PostgreSQL is completely open-source, running on all major operating systems, fully ACID compliant and includes MVCC\cite{postgres}.
+
 \subsection{CouchDB}
+
+CouchDB\cite{couchdb} is an open-source database developed by the Apache Software Foundation. It is a Document Store\cite{docStore} which employs JSON (JavaScript Object Notation) as its mechanism for modeling and storing data. CouchDB operates similarly to MongoDB however MongoDB has more widespread use\cite{dbranking} with the primary differences between the two being how data is accessed. A CouchDB Document Store is accessed and communicated with via a HTTP REST api\cite{couchapi} which allows CRUD actions on documents and their internal structures.
+
+Security Documents are provided for each database by CouchDB in the form of \texttt{\/db\/\_security} which allows for the definition of specific users of a document. This becomes necessary when implementing a 'Couch Per User' database model, whereby each user of a system is given their own document store database.
+
+While MongoDB provides faster queries and may be easier to grasp coming from an SQL background, CouchDB also has a lot to offer with features such as mobile support\cite{couchvsmongo}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - Microsoft Bot Framework
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Microsoft Bot Framework}
 
-%Questionable???? Probably should include something for this
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - JSON - JSON wrapper for radicale XML
-%			JWT?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Data Objects / Structures}
 \subsection{JSON}
