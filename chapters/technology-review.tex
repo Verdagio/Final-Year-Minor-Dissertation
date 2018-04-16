@@ -227,6 +227,46 @@ Combining the usage of a number of the scripts used for various tasked documente
     "watch:test:debug": "npm run watch:test -- --inspect-brk=0.0.0.0:9229"
 }
 \end{minted}
+
+\subsection{Async/Await}
+
+The use of Async/Await is relatively new in the world of JavaScript and was introducted in the 2017 version of ECMAScript or ES8\cite{es8}. The use of async functions is said to be the answer to 'callback hell'. The previous options for writing asynchronous code in JavaScript were callbacks and promises. Async/Await is based on promises. Before taking a look at Async/Await one must first understand promises.
+
+Promises are a placeholder or proxy that represent the value or result of an asynchronous operation. Promises are considered to be \textit{thenable}, using the \texttt{.then()} function. The \texttt{then()} function takes two arguments which are callback functions to be run for either success or failure of the Promise and also returns a Promise. This is for the use of what is known as Promise chaining. A Promise has 3 states it can be in:
+
+\begin{itemize}
+\item{\textbf{Pending} - where the asynchronous operation hasn't completed yet}
+\item{\textbf{Fulfilled} - where the asynchronous operation is resolved with a result}
+\item{\textbf{Rejected} - where the asynchronous operation is rejected with a reason for failure}
+\end{itemize}
+
+Async/Await makes asynchronous code look and behave a little more like synchronous code\cite{asyncawait}. For those familiar with languages such as C\# the syntax will look very familiar.
+
+Take for example a function \texttt{fetchData} that returns a promise and that promise resolves with some JSON object:
+\newpage
+\subsection*{Using Promises}
+
+\begin{minted}{js}
+const request = () =>
+  fetchData()
+    .then(data => {
+      console.log(data)
+      return "done"
+    })
+
+request()
+\end{minted}
+
+\subsection*{Using Async/Await}
+
+\begin{minted}{js}
+const request = async () => {
+  console.log(await fetchData())
+  return "done"
+}
+
+request()
+\end{minted}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - Databases
 %			The Model
@@ -234,16 +274,8 @@ Combining the usage of a number of the scripts used for various tasked documente
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Databases}
 \subsection{PostgreSQL}
-\subsection{CouchDB} %shell scripting
-\subsection{Radicale}
-\subsubsection{What is Radicale?}
-	Radicale is a free and open-source solution for storing and manipulating calendar and contact information, with capabilities of storing numerous address books and calendars. It is written using Python, and will run on most UNIX-like platforms such as: (Linux, *BSD, macOS) and Windows. Manipulation is available for both calendar and contact information from local or remote access, which is limited through authentication policies. Radicale aims to be a lightweight solution, which is easily installed, used, and configured, thus as a result of this, it is pre-configured for immediate usability, and does not require many software dependencies\cite{kozea}. Radicale is a server, it does not have a client, nor will a client be created by the development team behind the project as they claim: \emph{"No interfaces will be created to work with the server, as it is a really (really really) much more difficult task."}\cite{kozea}. Radicale uses the open standards available CalDAV and CardDAV as they are widely used by clients and servers. Some of the technical choices made before the project was built were as follows:
-    \begin{itemize}
-    \item \textbf{Oriented to Calendar and Contact User Agent} - Using defined protocols a calendar or contact server may interact with a calendar or contact client. As CalDAV and CardDAV have many use cases and features, these were the chosen protocols.
-    \item \textbf{Simplicity} - Radicale is designed in such a way that it be easy to install, configure and then use. 
-    \item \textbf{Lazy} - Where the CalDAV RFC describes what can or cannot be done. Radicale will assume that the everything is fine and that protocol violations are non-existent. The consequence of this is the server may reply with meaningful answers, meaningless answers, or in some cases not answer at all.
-    \end{itemize}
-Radicale itself appears to have originally been a simple school assignment or project which took on a life of its own afterwards.\cite{kozea} Nonetheless, its free, it works for its intended purposes, and what is required for a portion of this project.
+
+\subsection{CouchDB}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - Microsoft Bot Framework
@@ -324,6 +356,17 @@ JSON and ECMAScript source text are relatively similar. JSON is built up of a se
 
 \subsection{JSON and XML unified}
 	As standard, the data object being used by HTTP requests throughout the project is the JSON object. Not all of the components would work with this as standard, therefore a wrapper of sorts needed to be built in order to interface with the Radicale XML document store. JSON data coming into the calendar service api would validate that certain required fields were populated with conforming data, such as a date which would need to conform to \textbf{ISO8601} standards in order for Radicale to accept incoming requests for creation of calendars and events. The elements would be validated from JSON data and then extracted building an event object, this event object would then be parsed into the XML version of said event. Once the event had its minimum required data it would then be ready to push to Radicale, who in turn would run its own validation to ensure that the data received did indeed contain all necessary data required to build an event.ics file, and store it within its respective calendar. Once this process was successful Radicale would return a status code informing that a calendar or event had been created or updated, alongside a location to said calendar. 
+    
+\subsection{Radicale}
+\subsubsection{What is Radicale?}
+	Radicale is a free and open-source solution for storing and manipulating calendar and contact information, with capabilities of storing numerous address books and calendars. It is written using Python, and will run on most UNIX-like platforms such as: (Linux, *BSD, macOS) and Windows. Manipulation is available for both calendar and contact information from local or remote access, which is limited through authentication policies. Radicale aims to be a lightweight solution, which is easily installed, used, and configured, thus as a result of this, it is pre-configured for immediate usability, and does not require many software dependencies\cite{kozea}. Radicale is a server, it does not have a client, nor will a client be created by the development team behind the project as they claim: \emph{"No interfaces will be created to work with the server, as it is a really (really really) much more difficult task."}\cite{kozea}. Radicale uses the open standards available CalDAV and CardDAV as they are widely used by clients and servers. Some of the technical choices made before the project was built were as follows:
+    \begin{itemize}
+    \item \textbf{Oriented to Calendar and Contact User Agent} - Using defined protocols a calendar or contact server may interact with a calendar or contact client. As CalDAV and CardDAV have many use cases and features, these were the chosen protocols.
+    \item \textbf{Simplicity} - Radicale is designed in such a way that it be easy to install, configure and then use. 
+    \item \textbf{Lazy} - Where the CalDAV RFC describes what can or cannot be done. Radicale will assume that the everything is fine and that protocol violations are non-existent. The consequence of this is the server may reply with meaningful answers, meaningless answers, or in some cases not answer at all.
+    \end{itemize}
+Radicale itself appears to have originally been a simple school assignment or project which took on a life of its own afterwards.\cite{kozea} Nonetheless, its free, it works for its intended purposes, and what is required for a portion of this project.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -7,3 +7,14 @@ As many pages as needed.
 \item Highlight any limitations or opportuni-ties in your approach or technologies used.
 \end{itemize}
 
+\section{Validation}
+\subsection{Overview}
+	In relation to data, the process of validation used throughout the project ensured that incoming or outgoing data has gone through checks to ensure that the data has quality, also that it is correctly formatted and meaningful in relation to the requested api. Its intent is to provide defined guarantees for acceptability, consistency, and accuracy in the data which is persisting within the api, application, and databases. Rules are defined for any incoming data, which the data must conform to (e.g. an email must be in the following format user@domain.com). There are numerous types of validation which can be carried out based on its intent, scope, or complexity:
+	\begin{itemize}
+	\item \textbf{Type validation} This is a relatively simple form of validation which will check, and verify that the value that is input to a key conforms to the expect value, whether it is a specific value or primitive type (e.g. for key name, value should be a string, for key age, value should be an integer, et cetera). 
+    \item \textbf{Range and constraint validation} This type of validation will check consistency of input within a minimum or maximum range, or evaluating sequences against a regular expression (e.g. for key phone number, value should contain x amount of only digits between 0 and 9).
+    \item \textbf{Code and cross-reference validation} This type of validation tests that user-supplied data conforms to one or more rules or requirements within the scope of the intent (e.g. for key password, value should contain an uppercase character, a lowercase character, a digit, a symbol, and must be at least 8 characters long). When validating against constraints cross-referencing of a directory or table would validate that x cannot be the same as y (e.g. for key new user email, value cannot already exist within the table of user emails).
+	\end{itemize}
+
+
+\section{Testing}
