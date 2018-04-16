@@ -289,6 +289,13 @@ While MongoDB provides faster queries and may be easier to grasp coming from an 
 % Section - Microsoft Bot Framework
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Microsoft Bot Framework}
+The Microsoft Bot Framework\cite{msbotframework} offers a service for creating conversationalist bots through the Bot Builder SDK for both the C\# programming language through .NET and Node.js. The Bot Service allows developers to build, deploy and manage intelligent bots to interact naturally with users through websites, apps or third party clients such as Skype, Slack and Facebook Messenger\cite{msbotframework}. The Bot Builder SDK for Node.js has been developed to work with popular server frameworks such as Express.js\cite{express} and Restify\cite{restify} and makes it easy to create bots and test them using the Bot Framework Emulator\cite{botemulator}.
+
+The Bot Builder SDK for Node.js is written entirely in TypeScript and therefore provides developers with the beauty of types and intellisense in IDE's such as Visual Studio Code\cite{vscode}. As is common with Microsoft Frameworks, API documentation is given in a set of examples and an SDK reference, however due to the source code being written in TypeScript it becomes relatively easy to read through the source and see exactly what is going on behind the scenes. Having well defined and easy to read source code is a powerful tool for developers and allows them to dig deep and get a true flavour for a given framework or library.
+
+Conversations with bots are managed throughout a series of dialogs. Dialogs are what make up the essence of a conversational between human interactivity and indeed this is modeled throughout the Bot Builder SDK. Dialogs flow through in a waterfall sequence and decisions can be made by the bot given a set of results from a user or client. 
+
+Microsoft's Bot Framework also provides the ability of LUIS\cite{LUIS} integration. LUIS - Language Understanding Intelligent Service is Microsoft's machine learning based natural language processing service. LUIS can be integrated into a number of Microsoft Frameworks including the Bot Builder SDK. Building bots to interact with users is a powerful technique and is becoming popular throughout the industry. Providing intelligent or smart bots can provide a seamless user experience which may leave users questioning whether it may be a bot they are interacting with at all.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - JSON - JSON wrapper for radicale XML
