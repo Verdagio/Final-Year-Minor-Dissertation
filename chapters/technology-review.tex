@@ -268,6 +268,26 @@ const request = async () => {
 request()
 \end{minted}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Section - Restify
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Restify}
+Restify is Node.js framework for building RESTful web services\cite{restify}. Similar to Express.js\cite{express}, Restify allows for creating Node.js server applications. However, in contrast to Express, Restify comes as more lightweight and performance optimized framework, without aspects like templating or serving static resources such as HTML and CSS files.
+
+Restify acts solely as a server application with any front end technology involved and comes equipped with a suite of middleware plugins\cite{restify} for processing incoming HTTP requests. Some of the world's largest technology companies use Restify as part of their applications technology stack such as NPM, Netflix and Pintrest\cite{restify}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Section - Microsoft Bot Framework
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Microsoft Bot Framework}
+The Microsoft Bot Framework\cite{msbotframework} offers a service for creating conversationalist bots through the Bot Builder SDK for both the C\# programming language through .NET and Node.js. The Bot Service allows developers to build, deploy and manage intelligent bots to interact naturally with users through websites, apps or third party clients such as Skype, Slack and Facebook Messenger\cite{msbotframework}. The Bot Builder SDK for Node.js has been developed to work with popular server frameworks such as Express.js\cite{express} and Restify\cite{restify} and makes it easy to create bots and test them using the Bot Framework Emulator\cite{botemulator}.
+
+The Bot Builder SDK for Node.js is written entirely in TypeScript and therefore provides developers with the beauty of types and intellisense in IDE's such as Visual Studio Code\cite{vscode}. As is common with Microsoft Frameworks, API documentation is given in a set of examples and an SDK reference, however due to the source code being written in TypeScript it becomes relatively easy to read through the source and see exactly what is going on behind the scenes. Having well defined and easy to read source code is a powerful tool for developers and allows them to dig deep and get a true flavour for a given framework or library.
+
+Conversations with bots are managed throughout a series of dialogs. Dialogs are what make up the essence of a conversational between human interactivity and indeed this is modeled throughout the Bot Builder SDK. Dialogs flow through in a waterfall sequence and decisions can be made by the bot given a set of results from a user or client. 
+
+Microsoft's Bot Framework also provides the ability of LUIS\cite{LUIS} integration. LUIS - Language Understanding Intelligent Service is Microsoft's machine learning based natural language processing service. LUIS can be integrated into a number of Microsoft Frameworks including the Bot Builder SDK. Building bots to interact with users is a powerful technique and is becoming popular throughout the industry. Providing intelligent or smart bots can provide a seamless user experience which may leave users questioning whether it may be a bot they are interacting with at all.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - Databases
 %			The Model
 %			PostgreSQL & CouchDB 2
@@ -284,18 +304,6 @@ CouchDB\cite{couchdb} is an open-source database developed by the Apache Softwar
 Security Documents are provided for each database by CouchDB in the form of \texttt{\/db\/\_security} which allows for the definition of specific users of a document. This becomes necessary when implementing a 'Couch Per User' database model, whereby each user of a system is given their own document store database.
 
 While MongoDB provides faster queries and may be easier to grasp coming from an SQL background, CouchDB also has a lot to offer with features such as mobile support\cite{couchvsmongo}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Section - Microsoft Bot Framework
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Microsoft Bot Framework}
-The Microsoft Bot Framework\cite{msbotframework} offers a service for creating conversationalist bots through the Bot Builder SDK for both the C\# programming language through .NET and Node.js. The Bot Service allows developers to build, deploy and manage intelligent bots to interact naturally with users through websites, apps or third party clients such as Skype, Slack and Facebook Messenger\cite{msbotframework}. The Bot Builder SDK for Node.js has been developed to work with popular server frameworks such as Express.js\cite{express} and Restify\cite{restify} and makes it easy to create bots and test them using the Bot Framework Emulator\cite{botemulator}.
-
-The Bot Builder SDK for Node.js is written entirely in TypeScript and therefore provides developers with the beauty of types and intellisense in IDE's such as Visual Studio Code\cite{vscode}. As is common with Microsoft Frameworks, API documentation is given in a set of examples and an SDK reference, however due to the source code being written in TypeScript it becomes relatively easy to read through the source and see exactly what is going on behind the scenes. Having well defined and easy to read source code is a powerful tool for developers and allows them to dig deep and get a true flavour for a given framework or library.
-
-Conversations with bots are managed throughout a series of dialogs. Dialogs are what make up the essence of a conversational between human interactivity and indeed this is modeled throughout the Bot Builder SDK. Dialogs flow through in a waterfall sequence and decisions can be made by the bot given a set of results from a user or client. 
-
-Microsoft's Bot Framework also provides the ability of LUIS\cite{LUIS} integration. LUIS - Language Understanding Intelligent Service is Microsoft's machine learning based natural language processing service. LUIS can be integrated into a number of Microsoft Frameworks including the Bot Builder SDK. Building bots to interact with users is a powerful technique and is becoming popular throughout the industry. Providing intelligent or smart bots can provide a seamless user experience which may leave users questioning whether it may be a bot they are interacting with at all.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section - JSON - JSON wrapper for radicale XML
