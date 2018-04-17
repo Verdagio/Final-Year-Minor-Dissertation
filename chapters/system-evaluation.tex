@@ -23,17 +23,48 @@ As many pages as needed.
 	\subsection{Overview}
     In relation to testing, tests are carried out to assess whether a system or its components satisfy predefined requirements or not. Throughout the development process of the project, components were built with a Behavior Driven Development methodology, as tasks were nearing a branch merge state each route or function would then have a test written to verify that it meets expectations of its intended functionality. Using the Mocha testing framework and Chai assertion library, an asynchronous suite of unit tests are written for each service. A health check is the initial test to ensure that the service itself is functioning, further unit tests are written for each route in different situations to ensure that each component of the service is working and assert the correctness of each components response. With any function or component which would create data structures to be stored in a database or server the Nock library is used, this works by intercepting htttp requests and mocks the expected response in the given situation, thus no redundant testing data is being stored upon each run of a test suite. Finally the proxyquire library allowed for seizing control of functions in the effort to negate dependencies during testing of each routes source code.
     \subsubsection{System Under Test}
-    The term system under test refers to testing a system for correctness in its operation. Using docker compose test files, entire services would be tested all at once to ensure the system itself was working as expected. This means that every aspect of the environment is tested from the container itself being built, the environment being created with all of its dependencies and requirements, all components validation tested, all components unit tested in many different situations as listed below
+    The term system under test refers to testing a system for correctness in its operation. Using docker compose test files, entire services would be tested all at once to ensure the system itself was working as expected. This means that every aspect of the environment is tested from the container itself being built, the environment being created and configured with dependencies and requirements, the overall health check being carried out, all components unit tested in numerous different situations as listed below.
     
 \section{Robustness}
-	With the combination of both validation and testing this resulted in a more sturdy system overall. The tests carried out would cover numerous different situations and answer questions such as:
+	With the combination of validation, system, and unit testing this resulted in a more sturdy system overall. The tests carried out would cover numerous different situations and answer questions such as:
     \begin{itemize}
     \item Is there a valid authentication key present in the request?
-    \item Can we still hit a protected route without a valid authentication key or no authentication key whatsoever? 
+    \item Is it possible to hit a protected route without a valid authentication key or no authentication key whatsoever? 
     \item What would happen if the function is sent data which it does not have defined rules to handle?
     \item What would happen if the function is sent incomplete data?
     \item  What would happen if the function is sent data which is in the correct format for validation and the authentication key is also valid?
     \item  But most importantly, does this function do exactly what we had originally intended it to do every time it is called no matter what the situation may be?
     \end{itemize}
+    
+\section{Expectations vs Reality}
+	\subsection{Expectations}
+	In the introduction the following initial objectives were outlined:
+    \begin{itemize}
+	\item{ A RESTful web service for account management including all user account based business logic and serving as the primary base of the application.}
+	\item{A PostgreSQL\cite{postgres} relational database for user account management.}
+	\item{A CouchDB\cite{couchdb} per user model to facilitate user content storage using a NoSQL database.}
+	\item{A Radicale Caldav Server\cite{kozea} for management of calendar services.}
+	\item{A RESTful web service for calendar management that handles CRUD functionality of user calendar events and act as a JSON wrapper for the Radicale Caldav Server.}
+	\item{A client application designed using Stencil Ionic - Progressive Web Application using Web Components.}
+	\end{itemize}
+  
+    \subsection{Reality}
+    In reality the following objectives were either fully or close to completion:
+    \begin{itemize}
+    \item A RESTful account service which enables the management of accounts.
+    \item A relation database to store all user accounts.
+    \item A NoSql database per user account for account content storage.
+    \item A server successfully managing calendar data.
+    \item A RESTful calendar service for management of user calendars and events, with parsing of JSON to XML for compatibility with Radicale Caldav server. 
+    \end{itemize}
+    
+    \subsection{Shortcomings}
+    Of the initial six objectives set out, the primary shortcoming was the client application via Ionic Progressive Web Application (PWA) using Web Components. The technology itself is due to be introduced in Ionic 4, which at time of writing is still currently in BETA. The PWA Toolkit when released would deem the construction of PWAs relatively easy according to the team behind Ionic\cite{justinwillis}. To ensure that the system itself would not require copious hours of bug fixing and updating once coming out of BETA to full release, the decision to wait for the Ionic 4.x stable release was made.
+    
+    
+    
+    
+    
+    
     
     
