@@ -1,20 +1,4 @@
 \chapter{Conclusion}
-About three pages.
-
-\begin{itemize}
-\item Briefly summarise your context and ob-jectives (a few lines).
-\item Highlight your findings from the evaluation section / chapter and any opportuni-ties identified.
-\end{itemize}
-
-% Maybe ???
-% Thoughts and Observations ----------------------------
-\section{Thoughts and Observations}
-Testing makes for robust and durable code \\
-Testing highlights and identifies bugs \\
-Using Docker and other technologies requires good unix/linux command line skills and helps improve them \\
-Writing asynchronous code in Node.js is made much cleaner and readable using async/await vs callbacks or promises
-Writing high quality code does not require a user interface or client application for the means of demonstration or testing
-
 
 % MOVE TO CONCLUSION
 % Conclusion -------------------------------------------
@@ -22,10 +6,29 @@ Writing high quality code does not require a user interface or client applicatio
 While Microservice Architecture is a fantastic solution for many reoccurring problems in an application design, it should be considered by no means a silver a bullet \cite{BuildingMicroServices}. Microservice Architecture certainly adds a number of complexities and is often considered very risky to begin with as adopting this style can be very difficult to get right. Every application has different requirements and perhaps a simpler approach should be taken in the beginning. It is not uncommon to start with a monolith style architecture and later refactor to a Microservice based design. CTO of NPM Laurie Voss explains in his keynote how NPM began as a monolith and later refactored to a Microservice Architecture and is now the world's largest software registry\cite{npm}. So while Microservices and indeed Docker may not be the cure to address every aspect of software design and architecture, they both definitely have a lot promising and helpful tools to offer.
 
 % Docker
-\section{Docker as a continuous development tool}
+\section{Docker as a development tool}
 Docker as a development tool is relatively easy to pick up and implement, due to the fact that it is well supported and documented by its community. However, it comes with a steep learning curve as you traverse deeper into its more advanced features and functionality. The isolated environments that Docker containers provide, enables work across different machines regardless of the underlying infrastructure, which in the case of this project, provided an easy work flow during cross examination, merging, and service integration. Going forward Docker will continue to make this project more and more versatile, secure, quick, and easy to maintain because of the Docker ethos. Long after the project has been deployed and it is in use by the product owner, integration engineers and developer operations teams should find processes like: onboarding new services, or analyzing and repairing problematic services easy to identify, then address, seamlessly and fast. Finally with the exponential growth in adoption rate of Docker over the last couple of years, virtual machines may very well be a thing of the past in years to come.
+
+% Typescript, async / await, Node.js
+\section{Asynchronous Typescript code via Node.js runtime environment}
+The popularity of Node.js is not surprising whatsoever, throughout the lifetime of the project the task of building services using this tool was a relatively smooth learning process. With excellent documentation, support, and a wide variety of libraries to use for any task imaginable, developers using the framework should find the server-side logic somewhat easy and quick to pick up and get running. When paired with TypeScript the framework becomes even better, because TypeScript provides a rich type safe code base when using JavaScript for server-side logic development. The ability to create a type using two existing libraries means that what once were limitations are now reduced to a minor task of creating a type. The ability to use the Object Spread Operator also allows for some pretty nifty tricks such as tagging the payload onto the back of the options (headers) before they are sent out in a HTTP request. The act of writing asynchronous functions also enhances the code a great deal, by simply replacing a chain of callbacks with one keyword \texttt{await}, this reduces the overall source lines of code (SLOC), reduces complexity, and for the most part, makes the code more readable.
+
+\section{Authentication, Testing, and Validation}
+As discussed in previous sections, the addition of authentication, testing, and validation add a professional level of robustness to the overall project, without adding to much extra complexity. With authentication adding a layer of security to each service, validation adding a layer of reliability to each component of each service, and testing adding the overall assurance that each service, each component, no matter what the situation may be, will return what is expected of it. These three aspects add quality to the project as a whole.
 
 % Future Development -------------------------------------
 \section{Future Development}
+As highlighted in the system evaluation, building a responsive, client application via Ionic 4 Progressive Web Application ToolKit using Web Components will be a task when the full stable release becomes available. 
 
 
+% Thoughts and Observations ----------------------------
+\section{Thoughts and Observations}
+Working as a professional development team using an Agile Kanban workflow along with feature branches and pull requests has provided real world experience for moving forward into the software engineering industry. The following conclusions can be deduced from working on My Consultancy Services:
+
+\begin{itemize}
+\item{Unit Testing proves the robustness of code and provides a validation mechanism for proving its legitimacy and reasoning. }
+\item{Unit Testing can easily highlight and identify bugs. }
+\item{Writing high quality code does not require a user interface or client application for the means of demonstration or testing. }
+\item{Setbacks are common in any development environment and as a result push back features that were initially scheduled for earlier dates.}
+\item{Producing an industry standard piece of software over the course of two semesters proves difficult when working on several other modules. }
+\end{itemize}

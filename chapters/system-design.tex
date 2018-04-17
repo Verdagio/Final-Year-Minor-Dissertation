@@ -221,3 +221,31 @@ volumes:
     cal-data:
     config:
 \end{minted}
+
+\section{Jenkins Pipeline}
+
+A Jenkins Pipeline\cite{jenkinspipeline} has been setup for build stages and deployment.
+Jenkins can be deployed on bare metal, VPS (Virtual Private Server) or as a Docker container and can be configured as a standalone server or in a cluster with Jenkins Swarm\cite{jenkinsSwarm}. The modus operandi employed by Delta Ready Technology is that of a Jenkins Swarm running in a Docker Swarm\cite{dockerswarm}. Essentially, Jenkins is deployed as a global service on a three node Docker Swarm which provides a degree of fault tolerance and redundancy.  Additionally, three Jenkins Agents which are used to perform the build are run globally across the cluster.  A custom Docker Registry is used to store the docker images built in the CI (Continuous Integration)\cite{CI} process and resides at
+\url{https://registry.deltareadytechnology.com.au
+} and is protected by User Access Control.
+
+A build is triggered when a commit is made to the either of the Git branches \texttt{master} or \texttt{develop} in BitBucket.  The branches that trigger builds are configurable and currently a regular expression that tests for develop and master achieves the desired effect.  Rather than polling the BitBucket repository a Webhook (see Fig \ref{fig:webhooks}) is installed in BitBucket Cloud when configuring the Bitbucket Branch Source Plugin.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{img/webhooks.png}
+\caption{Webhooks}
+\label{fig:webhooks}
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[width=\textwidth]{img/jenkins.png}
+\caption{Jenkins Deployment}
+\label{fig:jenkins}
+\end{figure}
+
+Once the build pipeline has completed successfully the My Consultancy Service suite of Microservices are deployed based on a Docker Stack\cite{dockerstack} configuration (see Fig \ref{fig:jenkins}). 
+
+
+
+
