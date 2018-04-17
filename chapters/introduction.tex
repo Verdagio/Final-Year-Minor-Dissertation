@@ -1,13 +1,57 @@
 \chapter{Introduction}
 
-%\section{What problem are we trying to solve and why?}
-Any person providing an online personal consultancy services always face the challenge of acquiring, managing and retaining clients and delivery of the service over a disparate array of tools.  The primary problem is fragmentation of these tools.  Social media platforms such as Facebook are great in providing the networking and promotional aspect of things and while it is possible to run a business this way it is not the most effective and efficient means to an end.  Furthermore they are not designed to be business focused.
-The goal is to streamline the experience and allow a service provider to focus on the service delivery and growing their consultancy rather than having a inordinate amount of time managing clients. Consider the following user stories:
+With the commencement of their final year in Software Development at GMIT, the authors were presented with the offer of collaborating on the My Consultancy Services project as junior software developer interns for an external company, Delta Ready Technology Pty Ltd\cite{deltareadytechnology}. As a small consultancy company itself, Delta Ready Technology Pty Ltd would use this opportunity to work closely with the interns in creating a start-up product for small business or sole traders which allowed them to streamline the management of the services in which they provide. The project, My Consultancy Services would be a Greenfield project that uses cutting edge technology to solve an interesting business problem and would be directed by the company chief technology officer.
+As part of an onboarding process to allow the interns to get up and running with some of the latest technologies, research in certain fields was advised prior to the commencement of work and tutoring would be provided throughout the course of product development. A Microservice Architecture would be employed as to separate the concerns of various components and to allow them to be a reusable, maintainable, independently deployable suite of modular services which can be used for the future developments of the services provided by the company.
 
-%\section{Consider the following user stories:}
+\section{User Stories}
+
+Consider the following user stories\cite{userstories}:
+
 \begin{itemize}
 \item When deciding to offer an online service that involves interpersonal communication, Users want to be able to setup a personal page describing my services, so that I can manage the communication from the point of purchase right through to delivering my online service.
 \item When users setup personal pages describing their services, Users want to be able to set their pricing and the times they are normally willing to provide services, so that a user can feel like they are in control of their consultancy and their client knows when they are ordinarily available.
 \item When a user decides to avail of an online service that involves interpersonal communication, they want to be able to pay and have their account created if they do not already have one, additionally have their first session scheduled for them, so that they can manage their schedule accordingly.
 \item A consultant will be able to setup an online consultancy within ten minutes without training and receive their renumeration for work completed within thirty days without having to chase up with clients for outstanding invoicing.  Additionally a client won’t have to waste any time chasing up with the consultant on asking how to pay for the service.  Double booking of clients should not be a problem as the system should provide adequate feedback when this is likely to occur. 
+\end{itemize}
+
+\section{Objectives}
+
+The project is concerned with a number of objectives to be completed in order to reach a minimal viable product or MVP. The following will be created as a suite of containerised Docker\cite{Docker} services and deployed using a Jenkins continuous delivery (CD) pipeline\cite{jenkinspipeline}.
+
+\begin{itemize}
+\item{A RESTful web service for account management including all user account based business logic and serving as the primary base of the application.}
+
+\item{A PostgreSQL\cite{postgres} relational database for user account management.}
+
+\item{A CouchDB\cite{couchdb} per user model to facilitate user content storage using a NoSQL database.}
+
+\item{A Radicale Caldav Server\cite{kozea} for management of calendar services.}
+
+\item{A RESTful web service for calendar management that handles CRUD functionality of user calendar events and act as a JSON wrapper for the Radicale Caldav Server.}
+
+\item{A client application designed using Stencil Ionic - Progressive Web Application using Web Components.}
+\end{itemize}
+
+\section{Overview}
+
+The subsequent chapters of this paper will showcase various considerations of software development and design and aspects of software technology regarding the My Consultancy Services project. 
+
+The Methodology includes a deep look into the project management workflow used throughout the entire software development life cycle and what approaches were taken. A Technology Review is included to give an overview and analysis of different languages, frameworks, libraries and standards employed within the project. Finally, System Design and Evaluation provide a briefing on the system architecture, how it was designed and a reflection on the outcomes of the project including robustness, stability and testing. 
+
+\section{Project Resources}
+
+As a result of working with an industrial parter, Delta Ready Technology Pty Ltd has request that the source code repository remain private. For any queries regarding this please do not hesitate to email: \\
+\begin{itemize}
+\item{\textbf{G00324947@gmit.ie}}
+\item{\textbf{G00282931@gmit.ie}}
+\end{itemize}
+
+\subsection*{Links}
+
+\begin{itemize}
+\item{My Consultancy Services - Mono Respository: \\ \texttt{https://bitbucket.org/deltaready-mcs/mcs-microservices-mono-repo}}
+
+\item{My Consultancy Services - Minor Dissertation: \\
+\texttt{https://github.com/Verdagio/Final-Year-Minor-Dissertation}}
+
 \end{itemize}

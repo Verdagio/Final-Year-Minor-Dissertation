@@ -11,11 +11,29 @@ As many pages as needed.
 \subsection{Overview}
 	In relation to data, the process of validation used throughout the project ensured that incoming or outgoing data has gone through checks to ensure that the data has quality, also that it is correctly formatted and meaningful in relation to the requested api. Its intent is to provide defined guarantees for acceptability, consistency, and accuracy in the data which is persisting within the api, application, and databases. Rules are defined for any incoming data, which the data must conform to (e.g. an email must be in the following format user@domain.com). There are numerous types of validation which can be carried out based on its intent, scope, or complexity:
 	\begin{itemize}
-	\item \textbf{Type validation} This is a relatively simple form of validation which will check, and verify that the value that is input to a key conforms to the expect value, whether it is a specific value or primitive type (e.g. for key name, value should be a string, for key age, value should be an integer, et cetera). 
+	\item \textbf{Type validation} This is a relatively simple form of validation which will check, and verify that the value that is input to a key conforms to the expected value, whether it is a specific value or primitive type (e.g. for key name, value should be a string, for key age, value should be an integer, et cetera). 
     \item \textbf{Range and constraint validation} This type of validation will check consistency of input within a minimum or maximum range, or evaluating sequences against a regular expression (e.g. for key phone number, value should contain x amount of only digits between 0 and 9).
     \item \textbf{Code and cross-reference validation} This type of validation tests that user-supplied data conforms to one or more rules or requirements within the scope of the intent (e.g. for key password, value should contain an uppercase character, a lowercase character, a digit, a symbol, and must be at least 8 characters long). When validating against constraints cross-referencing of a directory or table would validate that x cannot be the same as y (e.g. for key new user email, value cannot already exist within the table of user emails).
 	\end{itemize}
+    To enable this behavior the joi library is used, this allows the creation of a blueprint or schema named a "validator" for objects with defined limitations of what can be input into the values for each key value pair. This "validator" would then be validated using the restify-api-validation library. Upon validation the library would either allow the function to carry on or throw a validation error which notifies of specific non-conformances within the data being transferred to the api. 
 
 % FOR THE TESTING SECTION TALK ABOUT MOCHA, CHAI, NOCK and PROXYQUIRE
 % PROXYQUIRE ALLOWS FOR THE HIJACKING OF YOUR OWN FUNCTIONS TO NEGATE DEPENDENCIES AND ONLY TEST YOUR OWN SOURCE CODE PATHS... blah blah
 \section{Testing}
+	\subsection{Overview}
+    In relation to testing, tests are carried out to assess whether a system or its components satisfy predefined requirements or not. Throughout the development process of the project, components were built with a Behavior Driven Development methodology, as tasks were nearing a branch merge state each route or function would then have a test written to verify that it meets expectations of its intended functionality. Using the Mocha testing framework and Chai assertion library, an asynchronous suite of unit tests are written for each service. A health check is the initial test to ensure that the service itself is functioning, further unit tests are written for each route in different situations to ensure that each component of the service is working and assert the correctness of each components response. With any function or component which would create data structures to be stored in a database or server the Nock library is used, this works by intercepting htttp requests and mocks the expected response in the given situation, thus no redundant testing data is being stored upon each run of a test suite. Finally the proxyquire library allowed for seizing control of functions in the effort to negate dependencies during testing of each routes source code.
+    \subsubsection{System Under Test}
+    The term system under test refers to testing a system for correctness in its operation. Using docker compose test files, entire services would be tested all at once to ensure the system itself was working as expected. This means that every aspect of the environment is tested from the container itself being built, the environment being created with all of its dependencies and requirements, all components validation tested, all components unit tested in many different situations as listed below
+    
+\section{Robustness}
+	With the combination of both validation and testing this resulted in a more sturdy system overall. The tests carried out would cover numerous different situations and answer questions such as:
+    \begin{itemize}
+    \item Is there a valid authentication key present in the request?
+    \item Can we still hit a protected route without a valid authentication key or no authentication key whatsoever? 
+    \item What would happen if the function is sent data which it does not have defined rules to handle?
+    \item What would happen if the function is sent incomplete data?
+    \item  What would happen if the function is sent data which is in the correct format for validation and the authentication key is also valid?
+    \item  But most importantly, does this function do exactly what we had originally intended it to do every time it is called no matter what the situation may be?
+    \end{itemize}
+    
+    
